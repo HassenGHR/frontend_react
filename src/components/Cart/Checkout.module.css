@@ -1,0 +1,99 @@
+.form {
+    margin: 1rem 0;
+    height: 10rem;
+    overflow: auto;
+  }
+  
+  .control {
+    display: flex;
+    margin-top: 0.5rem;
+    gap: 2rem;
+     
+   
+  }
+  
+  .control label {
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+    display: block;
+
+  }
+  
+  .control input {
+    font: inherit;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 15rem;
+    max-width: 100%;
+  }
+  
+  .radio {
+    display: flex;
+    flex-direction: row; /* Change flex direction to row */
+    align-items: center;
+    gap: 1rem;
+    padding-top: 1rem; /* Align items vertically in the center */
+  }
+  
+  .radio label {
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+    margin-right: 0.5rem; /* Add margin between radio button and label */
+  }
+  
+  .radio input[type="radio"] {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    /* Rest of your input styles */
+  }
+  .boldRed {
+    font-weight: bold;
+    color:  #ca3e51;;
+  }
+  .radioOptions{
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+   
+  }
+  
+  .actions button {
+    font: inherit;
+    color: #5a1a01;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    border-radius: 25px;
+    padding: 0.5rem 2rem; 
+  }
+  
+  .actions button:hover,
+  .actions button:active {
+    background-color: #ffe6dc;
+  }
+  
+  .actions .submit {
+    border: 1px solid #5a1a01;
+    background-color: #5a1a01;
+    color: white;
+  }
+  
+  .actions .submit:hover,
+  .actions .submit:active {
+    background-color: #7a2706;
+  }
+  
+  .invalid label {
+    color: #ca3e51;
+  }
+  
+  .invalid input {
+    border-color: #aa0b20;
+    background-color: #ffeff1;
+    height: 2rem;
+  }
