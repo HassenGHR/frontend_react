@@ -101,6 +101,7 @@ const Cart = (props) => {
         stop_desk: parseInt(addedDelivery.allowance),
       }),
     };
+    console.log(requestOptions)
     try {
       const response = await fetch(apiUrl, requestOptions);
       const data = await response.json();
