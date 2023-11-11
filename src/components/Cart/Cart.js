@@ -55,7 +55,7 @@ const Cart = (props) => {
     }
     
   }, [cartCtx.totalAmount, addedDelivery, itemsAmount]);
-  const amountToSend = globalAmountToPay.replace(/\s*da\s*/, "");
+  const amountToSend = globalAmountToPay.replace(/da/gi, "");
 
   const orderHandler = () => {
     setIsCheckout(true);
@@ -101,10 +101,11 @@ const Cart = (props) => {
         stop_desk: parseInt(addedDelivery.allowance),
       }),
     };
-    console.log(requestOptions)
+    
     try {
       const response = await fetch(apiUrl, requestOptions);
       const data = await response.json();
+   
       // Handle the response data here
       if (data.success) {
         const trackingNumber = data.tracking;
@@ -158,10 +159,7 @@ const Cart = (props) => {
                   }
                   return response.json();
                 })
-                .then((data) => {
-                  console.log(data.message); // Server response message
-                  // Handle success if needed
-                })
+                
                 .catch((error) => {
                   console.error("Error updating data:", error);
                   // Handle error if needed
