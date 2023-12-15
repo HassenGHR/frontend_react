@@ -11,7 +11,7 @@ const Home = () => {
     fetch(`${process.env.REACT_APP_SERVER_URL}/api/data`) // Replace this URL with your API endpoint URL
       .then((res) => {
         if (!res.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error("Network response was not ok");
         }
         return res.json();
       })
@@ -20,17 +20,17 @@ const Home = () => {
         setProducts(result.products);
       })
       .catch((error) => {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       });
   }, []);
   return (
     <div>
       <section className="bg-white py-8">
-        <div className="container mx-auto flex items-center flex-wrap pt-4 pb-12">
+        <div className="container mx-auto flex  pt-4 pb-12 justify-center">
           {!isLoaded ? (
             <Loader />
           ) : (
-            <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+            <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-3 gap-x-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8 ">
               {products.map((product) => (
                 <Card key={product.id} product={product} />
               ))}

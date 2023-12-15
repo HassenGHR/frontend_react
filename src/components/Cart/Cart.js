@@ -16,12 +16,13 @@ const Cart = (props) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [addedDelivery, setAddedDelivery] = useState({
     deliveryAmount: 0,
-    willayaCode: "",
-    allowance: "",
+    willayaCode: "1",
+    allowance: "1",
   });
   const [itemsAmount, setItemsAmount] = useState(cartCtx.items.length);
   const [globalAmountToPay, setGlobalAmountToPay] = useState("");
-
+  const [selectedCommunes, setSelectedCommune] = useState([]);
+var code = addedDelivery.willayaCode;
   const handleAddedDeliveryForm = (deliveryInfo) => {
     setAddedDelivery({
       deliveryAmount: deliveryInfo.deliveryAmount,
@@ -71,6 +72,22 @@ const Cart = (props) => {
     index[itemId] = amount[currentIndex];
     return index;
   }, {});
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_SERVER_URL}/api/wilayas/${code}`)
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`HTTP error! Status: ${res.status}`);
+        }
+        return res.json();
+      })
+      .then((result) => {
+        console.log(result); // Log the result to see what the server is returning
+        setSelectedCommune(result);
+      })
+      .catch((error) => {
+        console.error('Fetch error:', error);
+      });
+  }, [code]);
 
   const submitOrderHandler = async (userData) => {
     const { name, address, city, phone } = userData;
@@ -229,7 +246,7 @@ const Cart = (props) => {
         <span>{globalAmountToPay}</span>
       </div>
       {isCheckout && (
-        <Checkout onConfirm={submitOrderHandler} onCancel={props.onClose} />
+        <Checkout  selectedCommunes={selectedCommunes} onConfirm={submitOrderHandler} onCancel={props.onClose} />
       )}
       {!isCheckout && modalActions}
     </React.Fragment>

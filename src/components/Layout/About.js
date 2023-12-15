@@ -8,16 +8,16 @@ const About = () => {
           <h1 className="text-3xl font-semibold mb-6 p-3">About Us</h1>
           <div className="text-lg mb-4">
             <p>
-              Welcome to NavTech, your trusted source for high-quality auto parts and accessories. We are dedicated to providing our customers with top-notch products to enhance the performance and appearance of their vehicles.
+              Welcome to AutoNav, your trusted source for high-quality auto parts and accessories. We are dedicated to providing our customers with top-notch products to enhance the performance and appearance of their vehicles.
             </p>
             <p>
-              At NavTech, we specialize in offering a wide range of auto parts, from engine components to exterior accessories. Our team of experts carefully selects each product to ensure durability, reliability, and exceptional performance.
+              At AutoNav, we specialize in offering a wide range of auto parts, from vehicle trackers to exterior accessories. Our team of experts carefully selects each product to ensure durability, reliability, and exceptional performance.
             </p>
             <p>
               Customer satisfaction is our priority, and we strive to deliver outstanding service along with our premium products. Whether you are a car enthusiast, a mechanic, or a vehicle owner, you can rely on us to provide you with the parts you need to keep your vehicle in top condition.
             </p>
             <p>
-              Thank you for choosing NavTech for all your auto parts needs. We look forward to serving you and contributing to your automotive journey.
+              Thank you for choosing AutoNav for your auto parts needs. We look forward to serving you and contributing to your automotive journey.
             </p>
           </div>
         </div>

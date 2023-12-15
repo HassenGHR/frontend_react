@@ -8,16 +8,23 @@ const isEmpty = (value) => {
 };
 
 const CartItem = (props) => {
-  const [selectedAllowance, setSelectedAllowance] = useState("");
+  const [selectedAllowance, setSelectedAllowance] = useState("1");
   const [formIncomplete, setFormIncomplete] = useState(true);
-  const [willaya, setWillaya] = useState("");
-  const [willyaCode, setWillayaCode] = useState("");
-  const [deliveryAmount, setDeliveryAmount] = useState("");
+  const [willaya, setWillaya] = useState("Adrar");
+  const [willyaCode, setWillayaCode] = useState("1");
+  const [deliveryAmount, setDeliveryAmount] = useState("900");
 
   const [formInputsValidity, setFormInputsValidity] = useState({
     willayaCode: true,
     allowance: true,
   });
+  useEffect(() => {
+    // Set initial values after component mounts
+    setWillayaCode("1");
+    setSelectedAllowance("1");
+    setDeliveryAmount("900");
+    setWillaya("Adrar")
+  }, []);
 
   useEffect(() => {
     if (willyaCode !== null && willaya !== null && selectedAllowance !== null) {
@@ -35,7 +42,8 @@ const CartItem = (props) => {
         enteredAllowanceIsValid &&
         isWillayaCodeValid &&
         selectedAllowance === "1" &&
-        willaya !== null
+        willaya !== null &&
+        willaya !== undefined
       ) {
         setDeliveryAmount(willaya.tarif_stopdesk);
       }
@@ -43,7 +51,8 @@ const CartItem = (props) => {
         enteredAllowanceIsValid &&
         isWillayaCodeValid &&
         selectedAllowance === "0" &&
-        willaya !== null
+        willaya !== null &&
+        willaya !== undefined
       ) {
         setDeliveryAmount(willaya.tarif);
       }
@@ -146,6 +155,7 @@ const CartItem = (props) => {
             <label>Allowance</label>
             <div className={classes1.radioOptions}>
               <input
+              
                 type="radio"
                 id="stop_desk"
                 name="allowance"

@@ -4,87 +4,39 @@ import classes from "./Checkout.module.css";
 const isEmpty = (value) => value.trim() === "";
 
 const Checkout = (props) => {
+
   const [formInputsValidity, setFormInputsValidity] = useState({
     name: true,
     street: true,
     city: true,
     phone: true,
-   
   });
 
   const nameInputRef = useRef();
   const streetInputRef = useRef();
   const cityInputRef = useRef();
   const phoneInputRef = useRef();
-  const [cities, setCities] = useState([]);
-
-  useEffect(() => {
-    fetch(`${process.env.REACT_APP_SERVER_URL}/api/cities`)
-      .then((res) => res.json())
-      .then((result) => {
-        setCities(result);
-      });
-  }, []);
-  const communeNamesArray = cities.map((item) => {
-    const key = item.commune_name_ascii.toLowerCase();
-    const value = item.commune_name.toLowerCase();
-    return {
-      [key]: value,
-    };
-  });
+  const [selectedCity, setSelectedCity] = useState("");
 
   const confirmHandler = (event) => {
     event.preventDefault();
 
     const enteredName = nameInputRef.current.value;
     const enteredStreet = streetInputRef.current.value;
-    const enteredCity = cityInputRef.current.value;
     const enteredPhone = phoneInputRef.current.value;
 
-    const enteredCityLowerCase = enteredCity.toLowerCase();
-
-    const enteredNameIsValid = !isEmpty(enteredName);
-    const enteredStreetIsValid = !isEmpty(enteredStreet);
-    const enteredCityIsValid =
-      !isEmpty(enteredCity) &&
-      communeNamesArray.some((item) => {
-        const key = Object.keys(item)[0];
-        const value = item[key];
-        return key === enteredCityLowerCase || value === enteredCityLowerCase;
-      });
-    const enteredPhoneIsValid = !isEmpty(enteredPhone);
-    let selectedCommune = "";
-
-    if (enteredCityIsValid) {
-      const enteredCityLowerCase = enteredCity.toLowerCase();
-
-      const match = communeNamesArray.find((item) => {
-        const key = Object.keys(item)[0];
-        const value = item[key];
-        return value === enteredCityLowerCase;
-      });
-      
-
-      if (match) {
-        selectedCommune = Object.keys(match)[0];
-      }else{
-        selectedCommune = enteredCityLowerCase
-      }
-    }
-  
-
     setFormInputsValidity({
-      name: enteredNameIsValid,
-      street: enteredStreetIsValid,
-      city: enteredCityIsValid,
-      phone: enteredPhoneIsValid,
+      name: !isEmpty(enteredName),
+      street: !isEmpty(enteredStreet),
+      city: !isEmpty(selectedCity),
+      phone: !isEmpty(enteredPhone),
     });
 
     const formIsValid =
-      enteredNameIsValid &&
-      enteredStreetIsValid &&
-      enteredCityIsValid &&
-      enteredPhoneIsValid;
+      !isEmpty(enteredName) &&
+      !isEmpty(enteredStreet) &&
+      !isEmpty(selectedCity) &&
+      !isEmpty(enteredPhone);
 
     if (!formIsValid) {
       return;
@@ -92,7 +44,7 @@ const Checkout = (props) => {
     props.onConfirm({
       name: enteredName,
       address: enteredStreet,
-      city: selectedCommune,
+      city: selectedCity,
       phone: enteredPhone,
     });
   };
@@ -124,15 +76,25 @@ const Checkout = (props) => {
         {!formInputsValidity.street && <p>Please enter a valid Address!</p>}
       </div>
       
-      <div className={cityControlClasses}>
-        <label htmlFor="city">City</label>
-        <input type="text" id="city" ref={cityInputRef} />
-        {!formInputsValidity.city && <p>Please enter a valid city!</p>}
-      </div>
+     
       <div className={phoneControlClasses}>
         <label htmlFor="phone">Your Phone</label>
         <input type="number" id="phone" ref={phoneInputRef} />
         {!formInputsValidity.phone && <p>Please enter a valid phone number!</p>}
+      </div>
+      <div className={cityControlClasses}>
+        <label htmlFor="city">City</label>
+        <select id="city" ref={cityInputRef} onChange={(event) => setSelectedCity(event.target.value)}>
+          <option value="" disabled selected>
+            Select a city
+          </option>
+          {props.selectedCommunes.map((commune) => (
+            <option key={commune.nom} value={commune.nom}>
+              {commune.nom}
+            </option>
+          ))}
+        </select>
+        {!formInputsValidity.city && <p>Please select a valid city!</p>}
       </div>
 
       <div className={classes.actions}>
