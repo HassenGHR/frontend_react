@@ -30,7 +30,7 @@ const CartItem = (props) => {
     if (willyaCode !== null && willaya !== null && selectedAllowance !== null) {
       const enteredWillayaCode = parseInt(willyaCode.trim());
       const isWillayaCodeValid =
-        enteredWillayaCode >= 1 && enteredWillayaCode <= 58;
+        enteredWillayaCode >= 1 && enteredWillayaCode <= 48;
       const enteredAllowanceIsValid = !isEmpty(selectedAllowance);
 
       setFormInputsValidity({
